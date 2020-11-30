@@ -1,0 +1,8 @@
+
+
+//AUT Action Types
+export const LOGIN_USER = 'LOGIN_USER'
+export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS'
+export const CREATE_USER_FAIL = 'CREATE_USER_FAIL'
+export const SET_ERRORS = "SET_ERRORS"
+export const SET_CURRENT_USER = 'SET_CURRENT_USER'
