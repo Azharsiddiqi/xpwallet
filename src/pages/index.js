@@ -4,15 +4,59 @@ import SideBar from '../components/sidebar';
 
 import Routes from './routes';
 
+import LoginPopup from '../components/Popups/Login'
+
 
 
 class index extends Component {
+    constructor(props) {
+		super(props);
+		this.state = {
+            loginPopup: false,
+            confirmationPopup:false,
+            successPopup:false,
+            failedPopup:false,
+            otpPopup:false
+        }
+    }
+    closeCodeHandler = (model) => {
+        this.setState({
+            [model]: false,
+        });
+    };
+    modelHandler = (model) => {
+        if (model === 'loginPopup') {
+            this.setState({ [model]: !this.state[model] });
+        }
+        else if (model === 'confirmationPopup') {
+            this.setState({ [model]: !this.state[model] });
+        }
+        else if (model === 'successPopup') {
+            this.setState({ [model]: !this.state[model] });
+        }
+        else if (model === 'failedPopup') {
+            this.setState({ [model]: !this.state[model] });
+        }
+        else if (model === 'otpPopup') {
+            this.setState({ [model]: !this.state[model] });
+        }
+    }
     render() {
         return (
             <React.Fragment>
+                {this.state.loginPopup && (
+					<LoginPopup
+						show={this.state.loginPopup}
+						closeCodelHanlder={this.closeCodelHanlder}
+						emailSigninHandler={this.modelHanlder}
+					/>
+				)}
                 <Header />
                 <SideBar />
-                <Routes />
+                <Routes 
+                   modelHandler = {this.modelHandler}
+                   closeCodeHandler = {this.closeCodeHandler}
+                />
             </React.Fragment>
         )
     }
