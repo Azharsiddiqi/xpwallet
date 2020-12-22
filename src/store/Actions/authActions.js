@@ -49,7 +49,7 @@ export const registerUser = (userData) => (dispatch) => {
 // Logiin - Login a User
 export const loginUser = (userData, history) => (dispatch) => {
 	// dispatch(setPageLoading());
-
+	console.log("login user function")
 	axios
 		.post(backendServerURL + '/authenticateUser', userData)
 		.then((res) => {

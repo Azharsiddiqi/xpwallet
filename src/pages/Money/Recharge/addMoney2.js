@@ -1,7 +1,26 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+import * as actions from '../../../store/Actions/index';
+
 class addMoney2 extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            creditCardList:[]
+        }
+    }
+    componentDidMount(){
+        const data =  {
+            customerId: "cus_I3EnBVQ0xAAmR9",
+            channel: "xpwallet",
+            requestPlatform: "web"
+          }
+          console.log("req packet for card list",data)
+          this.props.onGetCreditCardList(data)
+        }
+
     render() {
         return (
             <React.Fragment>
@@ -41,4 +60,18 @@ class addMoney2 extends Component {
         )
     }
 }
-export default addMoney2;
+
+const mapStateToProps = (state) => {
+	return {
+		
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onGetCreditCardList: (req_Packet) =>
+            dispatch(actions.getCreditCardList(req_Packet)),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(addMoney2);

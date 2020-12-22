@@ -1,7 +1,38 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
+import { connect } from 'react-redux';
+import * as actions from '../../store/Actions';
+
 class index extends Component {
+    constructor(props) {
+		super(props);
+		this.state = {
+            getUserDetails:{}
+		};
+    }
+
+    componentDidMount(){
+
+
+        const req_Packet = {
+            customerId:86,
+            customerStripeId:"cus_IT0NXwDJouUiTa",
+            channel:"xpwallet",
+            requestPlatform:"web"
+        }
+        this.props.onGetUserDetails(req_Packet);
+
+        const transactionReqPacket =  {
+            customerId:86,
+            channel:"xpwallet",
+            requestPlatform:"web"
+        }
+        this.props.onGetRecentTransaction(transactionReqPacket);
+
+    }
+
+
     render() {
         return (
             <React.Fragment>
@@ -155,6 +186,7 @@ class index extends Component {
                             </div>
                             </div>              
                         </div>            
+                        
                         <div className="col-12 col-xxl-4 md-mr-t-15">
                             <div className="theme-info-box">
                             <div className="profileBox">
@@ -311,4 +343,19 @@ class index extends Component {
         )
     }
 }
-export default index;
+const mapStateToProps = (state) => {
+	return {
+		
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onGetUserDetails: (req_Packet) =>
+            dispatch(actions.getUserData(req_Packet)),
+        onGetRecentTransaction: (req_Packet) =>
+			dispatch(actions.getRecentTransaction(req_Packet)),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(index);
