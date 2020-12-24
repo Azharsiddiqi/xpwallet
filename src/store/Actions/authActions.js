@@ -12,7 +12,6 @@ import {
 // import { setPageLoading, clearPageLoading, clearErrors } from './pageActions';
 
 const backendServerURL = process.env.REACT_APP_API_URL;
-const backendServerURL_Request = process.env.REACT_APP_API_URL_REQUEST_URL;
 
 
 // Set logged in user (Verified)
@@ -29,10 +28,7 @@ export const registerUser = (userData) => (dispatch) => {
 	// dispatch(setPageLoading());
 
 	axios
-		.post(backendServerURL,{
-			url: backendServerURL_Request+`/registerUser`,
-			requestpacket: userData
-		})
+		.post(backendServerURL+`/registerUser`,userData)
 		.then((res) => {
             if (res && res.data && res.data.resultCode === '200') {
                 dispatch({ type: CREATE_USER_SUCCESS });
@@ -53,14 +49,13 @@ export const registerUser = (userData) => (dispatch) => {
 // Logiin - Login a User
 export const loginUser = (userData, history) => (dispatch) => {
 	// dispatch(setPageLoading());
-
+	console.log("login user function")
 	axios
 		.post(backendServerURL + '/authenticateUser', userData)
 		.then((res) => {
             if (res.data && res.data.data && res.data.data.user) {
 				localStorage.setItem('jwtToken', JSON.stringify(res.data.data.user));
 				dispatch(setCurrentUser(res.data.data.user));
-				history.push(`/index-Canada&Ontario&Toronto`);
 			} else {
 				dispatch({
 					type: SET_ERRORS,
@@ -71,7 +66,7 @@ export const loginUser = (userData, history) => (dispatch) => {
 		.catch((err) => {
 			dispatch({
 				type: SET_ERRORS,
-				// payload:err && err.response && err.response.data ? err.response.data : {},
+				payload:err && err.response && err.response.data ? err.response.data : {},
 			});
 		})
 		.finally();

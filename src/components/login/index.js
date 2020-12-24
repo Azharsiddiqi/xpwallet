@@ -61,7 +61,6 @@ class index extends Component {
                         </div>
                     </div>
                     </div>
-
             </React.Fragment>
         )
     }
